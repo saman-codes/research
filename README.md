@@ -2,6 +2,6 @@
 ---
 ## Quick links:
 ---
-### [computer vision](cv/bibliography.md)
+### computer vision
 - #### [medical](cv/medical/bibliography.md)
 ### [reinforcement learning](rl/bibliography.md)
