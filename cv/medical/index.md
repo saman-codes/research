@@ -1,6 +1,5 @@
-- [gan](gan/index.md)
-
-- [segmentation](segmentation/index.md)
-
+<center> [gan](gan/index.md) </center>
 ---
-[BACK](../../README.md)
+<center>[segmentation](segmentation/index.md) </center>
+---
+[HOME](../../README.md)
