@@ -1,5 +1,14 @@
-- [object-based rl](object_based/bib.md)
+
+<center>[curiosity](curiosity/index.md) </center>
 ---
-- [rl for computer vision tasks](rl_for_cv_tasks/bib.md)
+<center>[object-based](object_based/index.md)</center>
 ---
-- [other](other/bib.md)
+<center>[rl for computer vision tasks](rl_for_cv_tasks/index.md) </center>
+---
+<center>[other](other/index.md) </center>
+---
+
+
+
+---
+[BACK](../README.md)

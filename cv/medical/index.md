@@ -1,3 +1,6 @@
-- [gan](gan/bib.md)
+- [gan](gan/index.md)
 
-- [segmentation](segmentation/bib.md)
+- [segmentation](segmentation/index.md)
+
+---
+[BACK](../../README.md)
