@@ -23,4 +23,6 @@ $$ R_{IDE}(S_{t},A_{t})=r_{t}^{i}(s_{t}, a_{t})=\frac{||\phi(s_{t+1}) - \phi(s_{
 
 ---
 
+[BACK](../index.md)
+
 [HOME](../../../README.md)

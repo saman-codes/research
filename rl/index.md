@@ -1,14 +1,16 @@
 <center>
+<h2> 
 
-<h2> [exploration](exploration/index.md)  </h2>
----
-<h2> [object-based](object_based/index.md) </h2>
----
-<h2> [rl for computer vision tasks](rl_for_cv_tasks/index.md)  </h2>
----
-<h2> [other](other/index.md) </h2>
----
+[exploration](exploration/index.md)
+
+[object-based](object_based/index.md)
+
+[rl for computer vision tasks](rl_for_cv_tasks/index.md) 
+
+[other](other/index.md)
 
 </center> 
+
 ---
+
 [HOME](../README.md)
