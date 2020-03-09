@@ -1,4 +1,5 @@
 <center>
+
 <h2> 
 
 [exploration](exploration/index.md)
@@ -9,8 +10,13 @@
 
 [other](other/index.md)
 
+<br>
+
+[notes](notes/index.md)
+
+[resources](resources/index.md)
+
 </center> 
 
----
 
 [HOME](../README.md)
