@@ -1,35 +1,103 @@
+#! /usr/bin/python3
+
 import os
 import argparse
+'''
+Examples:
+    Category: CV, RL 
+    Subcategory: architectures, latent_spaces, medical
+    Directory: pathak_et_al_2017, schmidhuber_1991
+'''
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    for p in ["category", "subcategory", "name", "url", "harvard"]:
-        parser.add_argument(p, type=str, default=None, help=p)
+class EntryManager:
+    def __init__(self, args):
+        self.args = args
+        self.set_args()
+        self.create_dirs()
+        self.update_summary()
 
-    args = parser.parse_args()
-    cwd = os.path.dirname(os.path.realpath(__file__))
-    category = os.path.join(cwd, args.category)
-    subcategory = os.path.join(category, args.subcategory)
-    directory = os.path.join(subcategory, args.name)
-    for d in [category, subcategory, directory]:
-        if not os.path.exists(d):
-            os.mkdir(d)
+    def set_args(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
 
-    url = args.url
-    harvard = args.harvard
-    summary_fname = os.path.join(directory, 'summary.md')
-    index_fname = os.path.join(subdirectory, 'index.md')
+        self.category = self.args.category
+        self.category_path = os.path.join(self.cwd, self.category)
 
-    with open(summary_fname, 'w') as f:
-        f.write(
-            '[' + str(harvard) + ']' + '(' + url +
-            ')\n\n---\n\n**Problem:**\n\n**Solution:**\n\n**Results:**\n\n**Architecture:**\n\n---\n\n[BACK](../index.md)\n[HOME](../../../README.md)'
-        )
+        self.subcategory = self.args.subcategory
+        self.subcategory_path = os.path.join(self.category_path,
+                                             self.subcategory)
 
-    with open(subdirectory, 'a') as f:
-        f.write('[' + str(harvard) + ']' + '(' + url + ')\n')
+        self.directory = self.args.directory
+        self.directory_path = os.path.join(self.subcategory_path,
+                                           self.directory)
+        self.url = self.args.url
+        self.harvard = self.args.harvard
+        self.summary_fpath = os.path.join(self.directory_path, 'summary.md')
+
+    def create_dirs(self):
+        # Create directories that don't exist
+        for k, v in {
+                'category': self.category_path,
+                'subcategory': self.subcategory_path,
+                'directory': self.directory_path,
+        }.items():
+            if not os.path.exists(v):
+                os.mkdir(v)
+                # Only update indeces when a new dir is created
+                self.update_index(k)
+
+    def update_index(self, k):
+        parent_path = getattr(self, f'{k}_path')
+        index_path = os.path.split(parent_path)[0]
+        index_path = os.path.join(index_path, 'index.md')
+        if os.path.exists(index_path):
+            with open(index_path, 'r') as f:
+                content = list(f)
+                if k == 'subcategory':
+                    idx = -4
+                elif k == 'directory':
+                    idx = 0
+        else:
+            if k == 'subcategory':
+                content = [
+                    '<center>\n<h2>\n[object-based](object_based/index.md)\n</center>\n[HOME]( ../../index.md)'
+                ]
+                idx = -2
+            elif k == 'directory':
+                content = [
+                    '\n---\n[BACK](../index.md)\n[HOME]( ../../index.md)'
+                ]
+                idx = -4
+
+        for i, c in enumerate(self.harvard.split('.')):
+            if '19' in c or '20' in c:
+                c = c.strip(' ').strip(',')
+                auth_and_name = ' '.join(self.harvard.split('.')[:i + 1])
+                # stop loop to avoid a match after the date, which would overwrite auth_and_name
+                break
+
+        summary_relpath = f'{self.directory}/summary.md'
+        index_relpath = f'{self.subcategory}/index.md'
+        if k == 'subcategory':
+            content.insert(idx, f'[{self.subcategory}]({index_relpath})\n')
+        elif k == 'directory':
+            content.insert(idx, f'[{auth_and_name}]({summary_relpath})\n')
+        content = "".join(content)
+
+        with open(index_path, "w") as f:
+            f.write(content)
+
+    def update_summary(self):
+        # Add content to summary file
+        with open(self.summary_fpath, 'w') as f:
+            f.write(
+                f'[{str(self.harvard)}]({self.url})\n\n---\n\n**Problem:**\n\n**Solution:**\n\n**Results:**\n\n**Architecture:**\n\n---\n\n[BACK](../index.md)\n[HOME](../../../index.md)'
+            )
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    for p in ["category", "subcategory", "directory", "url", "harvard"]:
+        parser.add_argument(p, type=str, default=None, help=p)
+    args = parser.parse_args()
+    em = EntryManager(args)

@@ -1,0 +1,2 @@
+rm -rf cv/sbc_example; 
+python3.8 ./add_entry.py 'cv' 'sbc_example' dir_example_2 'https://arxiv.org/pdf/1904.09925.pdf' 'Bello, I., Zoph, B., Vaswani, A., Shlens, J. and Le, Q.V., 2019. Attention augmented convolutional networks. In Proceedings of the IEEE International Conference on Computer Vision (pp. 3286-3295)'

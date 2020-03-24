@@ -8,8 +8,7 @@
 
 [medical](medical/index.md)
 
-
 </center>
 
 ---
-[HOME](../README.md)
+[HOME](../index.md)
