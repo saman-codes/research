@@ -8,14 +8,11 @@
 
 [medical](medical/index.md)
 
-
 [attention](attention/index.md)
 
-[attention](attention/index.md)
+[features](features/index.md)
 
-[attention](attention/index.md)
-
-[attention](attention/index.md)
+[architecture](architecture/index.md)
 </center>
 
 ---

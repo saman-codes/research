@@ -2,6 +2,12 @@
 
 <h2> 
 
+[notes](notes/index.md)
+
+[resources](resources/index.md)
+
+<br>
+
 [exploration](exploration/index.md)
 
 [object-based](object_based/index.md)
@@ -10,13 +16,12 @@
 
 [other](other/index.md)
 
-<br>
+[imitation_learning](imitation_learning/index.md)
 
-[notes](notes/index.md)
+[symbolic](symbolic/index.md)
 
-[resources](resources/index.md)
+[attention](attention/index.md)
 
 </center> 
-
 
 [HOME](../index.md)

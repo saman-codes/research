@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/local/bin/python3
 
 import os
 import logging
@@ -81,7 +81,7 @@ class EntryManager:
         for i, c in enumerate(self.harvard.split('.')):
             if '19' in c or '20' in c:
                 c = c.strip(' ').strip(',')
-                auth_and_name = ' '.join(self.harvard.split('.')[:i + 1])
+                auth_and_name = ' '.join(self.harvard.split('.')[:i + 2])
                 # stop loop to avoid a match after the date, which would overwrite auth_and_name
                 break
 
@@ -115,8 +115,10 @@ class EntryManager:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('-o', dest='open', action='store_true')
     for p in ["category", "subcategory", "directory", "url", "harvard"]:
         parser.add_argument(p, type=str, default=None, help=p)
     args = parser.parse_args()
     em = EntryManager(args)
-    subprocess.call(['code', em.summary_fpath])
+    if args.open:
+        subprocess.call(['code', em.summary_fpath])
