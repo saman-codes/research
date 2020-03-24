@@ -1,7 +1,11 @@
 #! /usr/bin/python3
 
 import os
+import logging
 import argparse
+import subprocess
+
+logging.basicConfig(format='%(message)s', level=logging.INFO)
 '''
 Examples:
     Category: CV, RL 
@@ -45,6 +49,11 @@ class EntryManager:
                 os.mkdir(v)
                 # Only update indeces when a new dir is created
                 self.update_index(k)
+                logging.info(f'New {k} --> {self.truncate_path(v)}')
+
+    @staticmethod
+    def truncate_path(path):
+        return '/'.join(path.split('/')[5:])
 
     def update_index(self, k):
         parent_path = getattr(self, f'{k}_path')
@@ -65,7 +74,7 @@ class EntryManager:
                 idx = -2
             elif k == 'directory':
                 content = [
-                    '\n---\n[BACK](../index.md)\n[HOME]( ../../index.md)'
+                    '\n---\n[BACK](../index.md)\n\n[HOME]( ../../index.md)'
                 ]
                 idx = -4
 
@@ -79,19 +88,28 @@ class EntryManager:
         summary_relpath = f'{self.directory}/summary.md'
         index_relpath = f'{self.subcategory}/index.md'
         if k == 'subcategory':
-            content.insert(idx, f'[{self.subcategory}]({index_relpath})\n')
+            content.insert(idx, f'\n[{self.subcategory}]({index_relpath})\n')
         elif k == 'directory':
-            content.insert(idx, f'[{auth_and_name}]({summary_relpath})\n')
+            content.insert(idx, f'\n[{auth_and_name}]({summary_relpath})\n')
         content = "".join(content)
 
         with open(index_path, "w") as f:
             f.write(content)
 
+        logging.info(f'Index {self.truncate_path(index_path)} updated')
+
     def update_summary(self):
         # Add content to summary file
-        with open(self.summary_fpath, 'w') as f:
-            f.write(
-                f'[{str(self.harvard)}]({self.url})\n\n---\n\n**Problem:**\n\n**Solution:**\n\n**Results:**\n\n**Architecture:**\n\n---\n\n[BACK](../index.md)\n[HOME](../../../index.md)'
+        if not os.path.exists(self.summary_fpath):
+            with open(self.summary_fpath, 'w') as f:
+                f.write(
+                    f'[{str(self.harvard)}]({self.url})\n\n---\n\n**Problem:**\n\n**Solution:**\n\n**Results:**\n\n**Architecture:**\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
+                )
+            logging.info(
+                f'Summary {self.truncate_path(self.summary_fpath)} created')
+        else:
+            logging.warning(
+                f' !!! Summary file {self.truncate_path(self.summary_fpath)} already exists: not overwriting !!!'
             )
 
 
@@ -101,3 +119,4 @@ if __name__ == '__main__':
         parser.add_argument(p, type=str, default=None, help=p)
     args = parser.parse_args()
     em = EntryManager(args)
+    subprocess.call(['code', em.summary_fpath])
