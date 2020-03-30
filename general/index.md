@@ -9,6 +9,8 @@
 
 [random_networks](random_networks/index.md)
 
+[info_theory_dl](info_theory_dl/index.md)
+
 </center>
 
 [HOME]( ../../index.md)

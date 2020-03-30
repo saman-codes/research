@@ -8,7 +8,7 @@
 
 <br>
 
-[exploration](exploration/index.md)
+[reward_augmentation](reward_augmentation/index.md)
 
 [object-based](object_based/index.md)
 
@@ -21,6 +21,8 @@
 [symbolic](symbolic/index.md)
 
 [attention](attention/index.md)
+
+[model_based](model_based/index.md)
 
 </center> 
 

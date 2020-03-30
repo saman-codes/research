@@ -13,6 +13,10 @@
 [features](features/index.md)
 
 [architecture](architecture/index.md)
+
+[gan](gan/index.md)
+
+[unsupervised](unsupervised/index.md)
 </center>
 
 ---
