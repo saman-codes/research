@@ -2,7 +2,7 @@
 
 ---
 
-👁️ (skimmed paper, skimmed [summary article](https://lilianweng.github.io/lil-log/2017/08/20/from-GAN-to-WGAN.html))
+👁️ (skimmed paper, skimmed [summary article](https://lilianweng.github.io/lil-log/2017/08/20/from-GAN-to-WGAN.html), [implementation article](https://developers.google.com/machine-learning/gan/loss))
 
 The introduction has a good discussion of generative models in general. 
 There's an interesting observation on why we need to add noise to these models, which I don't fully understand.
@@ -22,6 +22,9 @@ Propose a new distance measure between the generative distribution and the targe
 Earth Mover distance: 
 ![](../arjovsky_et_al_2017/arjovsky_et_al_2017_distance_1.png)
 
+Intuitively, it represents the amount of work required to move mass from one distribution to the other.
+It's proportional to the amount of mass to be moved and to the distance between the two distributions.
+
 **Results:**
 
 A theoretical analysis of the Earth Mover (EM) distance
@@ -33,7 +36,19 @@ Empirical results on training GANs with Wassertein's distance:
 - reduces mode collapse
 - gives the ability to estimate EM distance by training the discriminator; EM distance correlates with observed sample quality
 
+According to [implementation article](https://developers.google.com/machine-learning/gan/loss), they also avoid problems with vanishing gradients, and that EM distance, unlike Cross Entropy, is a true measure of distance in space of probability distributions 
+
 **Architecture:**
+
+From the [implementation article](https://developers.google.com/machine-learning/gan/loss) (the actual paper is a bit technical, I'm not understanding everything):
+
+- The discriminator outputs an arbitrary scalar instead of a probability: D(x) and D(G(z)) can be < 0 and > 1
+- The discriminator is trained to make the difference between the value for real and fake instances large
+- The discriminator is called *critic* instead of *discriminator*, since it cannot actually discriminate between real and fake instances, it just assigns an arbitrary value to each
+- Critic and Generator maximize the following functions:
+  - Critic: **D(x) - D(G(z))**
+  - Generator: **D(G(z)) **
+- Apparently, theoretical justification requires that the weights are clipped in the GAN to constrain them to a constrained range 
 
 ---
 
