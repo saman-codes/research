@@ -11,6 +11,10 @@
 
 [Xiangli, Y , Deng, Y , Dai, B , Loy, C C  and Lin, D , 2020  Real or Not Real, that is the Question](xiangli_et_al_2020/summary.md)
 
+[Choi, Y , Choi, M , Kim, M , Ha, J W , Kim, S  and Choo, J , 2018  Stargan: Unified generative adversarial networks for multi-domain image-to-image translation](choi2018stargan/summary.md)
+
+[Huang, H , Yu, P S  and Wang, C , 2018  An introduction to image synthesis with generative adversarial nets](huang2018introduction/summary.md)
+
 ---
 [BACK](../index.md)
 

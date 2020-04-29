@@ -19,6 +19,9 @@
 [unsupervised](unsupervised/index.md)
 
 [semi_supervised](semi_supervised/index.md)
+
+
+[old_school](old_school/index.md)
 </center>
 
 ---
