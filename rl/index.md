@@ -24,6 +24,8 @@
 
 [model_based](model_based/index.md)
 
+[alphago](alphago/index.md)
+
 </center> 
 
 [HOME](../index.md)
