@@ -15,6 +15,9 @@
 
 [Huang, H , Yu, P S  and Wang, C , 2018  An introduction to image synthesis with generative adversarial nets](huang2018introduction/summary.md)
 
+--- 
+[Training tips and tricks](./training_tips_and_tricks.md)
+
 ---
 [BACK](../index.md)
 
