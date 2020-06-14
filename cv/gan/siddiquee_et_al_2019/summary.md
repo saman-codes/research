@@ -17,7 +17,7 @@ Identify a single GAN architecture to remove objects from an image. Requirements
 
 **Solution:**
 
-Introduce the concept of **Fixed point translation**. In maths,  x is a fixed point of function f(·) if f(x) = x. Fixed points in the learned translation are then pixels that are not changed during the tranlation from one domain to the other (e.g. from diseased image to healthy image, or from face with sunglasses to same face without sunglasses).
+Introduce the concept of **Fixed point translation**. In maths,  x is a fixed point of function f(·) if f(x) = x. Fixed points in the learned translation are then pixels that are not changed during the translation from one domain to the other (e.g. from diseased image to healthy image, or from face with sunglasses to same face without sunglasses).
 
 Unlike [Schlegl et al. 2019 f-AnoGAN](https://github.com/tSchlegl/f-AnoGAN), this method can use source image labels during training, thus learning to reconstruct by anomaly, instead of grouping all anomalies into the same residual category, thus giving both localization and classification of anomalies.
 

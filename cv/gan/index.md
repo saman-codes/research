@@ -1,4 +1,6 @@
 
+[Karnewar, A  and Wang, O , 2020  Msg-gan: Multi-scale gradients for generative adversarial networks](karnewar2019msg/summary.md)
+
 [Siddiquee, Md Mahfuzur Rahman, Zongwei Zhou, Nima Tajbakhsh, Ruibin Feng, Michael B  Gotway, Yoshua Bengio, and Jianming Liang  "Learning fixed points in generative adversarial networks: From image-to-image translation to disease detection and localization " In Proceedings of the IEEE International Conference on Computer Vision, pp  191-200  2019](siddiquee_et_al_2019/summary.md)
 
 [Choi, Y , Choi, M , Kim, M , Ha, J W , Kim, S  and Choo, J , 2018  Stargan: Unified generative adversarial networks for multi-domain image-to-image translation](choi_et_al_2018/summary.md)

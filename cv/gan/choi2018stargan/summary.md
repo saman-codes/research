@@ -19,7 +19,7 @@ Translate between *k* domains using a single generator and discriminator. Instea
 
 Single generator G; discriminator D outputs one probability distribution over Real/Fake and one over domain, so D has one 0-1 regression head and one classifier head. Loss is a combination of:
 
-- Adversarial loss $L_{adv}: standard GAN loss 
+- Adversarial loss $L_{adv}$: standard GAN loss 
 - Domain classification loss $L_{cls}$: error of domain classification, a simple negative log loss. This loss is different for D and G: D gets the error signal from classifying real images to real domain c' (from the dataset), while G gets the error signal from D classifying fake images into target domain c.
 - Reconstruction loss $L_{rec}$: enforces the constraint that the generated image is similar to the input image. It only applies to G. Uses Cycle-consistency loss, which is the L1 norm of the difference between the input image x from domain c' and the generated image y of domain c after it's passed back into the generator and translated back into domain c': 
 
