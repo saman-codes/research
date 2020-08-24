@@ -1,1 +1,0 @@
-[Wang, Z., Sarcar, S., Liu, J., Zheng, Y. and Ren, X., 2018. Outline Objects using Deep Reinforcement Learning. arXiv preprint arXiv:1804.04603.](https://arxiv.org/pdf/1804.04603.pdf)

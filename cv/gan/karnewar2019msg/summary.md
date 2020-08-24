@@ -41,7 +41,7 @@ Shows that MSG-GAN has higher training stability, as measured by the MSE between
 
 MSG-GAN training seems robust to changes in learning rate: it trains MSG-ProGAN with 4 different learning rates, and they all converge. 
 
-Different combine functions perform better for different models: MSG-ProGAN performs best with the $\phi_{simple}$ function while MSG-StyleGAN did best with $\phi_{cat\_lin}$  
+Different combine functions perform better for different models: MSG-ProGAN performs best with the $\phi_{simple}$ function while MSG-StyleGAN did best with $\phi_{cat\_lin}$ 
 
 **Notes:**
 
