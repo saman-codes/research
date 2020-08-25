@@ -4,6 +4,7 @@ import os
 import logging
 import argparse
 import subprocess
+import arxiv
 
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 '''
@@ -35,8 +36,24 @@ class EntryManager:
         self.directory_path = os.path.join(self.subcategory_path,
                                            self.directory)
         self.url = self.args.url
-        self.harvard = self.args.harvard
         self.summary_fpath = os.path.join(self.directory_path, 'summary.md')
+        self.set_refs()
+
+    def set_refs(self):
+        article_id = self.url.split('/')[-1][:-4]
+        results = arxiv.query(query="",
+                              id_list=[article_id],
+                              max_results=1,
+                              start=0,
+                              sort_by="relevance",
+                              sort_order="descending",
+                              prune=True,
+                              iterative=False,
+                              max_chunk_results=1)[0]
+        self.title = results.title
+        self.abstract = results.summary
+        self.authors = ', '.join(results.authors)
+        self.year = results.updated_parsed.tm_year
 
     def create_dirs(self):
         # Create directories that don't exist
@@ -78,19 +95,13 @@ class EntryManager:
                 ]
                 idx = -4
 
-        for i, c in enumerate(self.harvard.split('.')):
-            if '19' in c or '20' in c:
-                c = c.strip(' ').strip(',')
-                auth_and_name = ' '.join(self.harvard.split('.')[:i + 2])
-                # stop loop to avoid a match after the date, which would overwrite auth_and_name
-                break
-
         summary_relpath = f'{self.directory}/summary.md'
         index_relpath = f'{self.subcategory}/index.md'
         if k == 'subcategory':
             content.insert(idx, f'\n[{self.subcategory}]({index_relpath})\n')
         elif k == 'directory':
-            content.insert(idx, f'\n[{auth_and_name}]({summary_relpath})\n')
+            content.insert(
+                idx, f'\n[{self.title}({self.year})]({summary_relpath})\n')
         content = "".join(content)
 
         with open(index_path, "w") as f:
@@ -103,7 +114,7 @@ class EntryManager:
         if not os.path.exists(self.summary_fpath):
             with open(self.summary_fpath, 'w') as f:
                 f.write(
-                    f'[{str(self.harvard)}]({self.url})\n\n---\n\n👁️\n\n**Problem:**\n\n**Solution:**\n\n**Architecture:**\n\n**Results:**\n\n**Notes:**\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
+                    f'[{self.title}]({self.url})\n{self.year} - {self.authors}\n\n---\n\n👁️\n\n**Problem:**\n\n**Solution:**\n\n**Architecture:**\n\n**Results:**\n\n**Notes:**\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
                 )
             logging.info(
                 f'Summary {self.truncate_path(self.summary_fpath)} created')
@@ -116,7 +127,7 @@ class EntryManager:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', dest='open', action='store_true')
-    for p in ["category", "subcategory", "directory", "url", "harvard"]:
+    for p in ["category", "subcategory", "directory", "url"]:
         parser.add_argument(p, type=str, default=None, help=p)
     args = parser.parse_args()
     em = EntryManager(args)
