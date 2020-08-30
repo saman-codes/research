@@ -6,8 +6,6 @@
 
 [semi_supervised](semi_supervised/index.md)
 
-[example](example/index.md)
-
 </center>
 
 ---
