@@ -1,14 +1,17 @@
 <center>
 
+<h2> 
+
 [reward_augmentation](reward_augmentation/index.md)
 
 [alphago](alphago/index.md)
 
-<h2> 
+<h3>
 
 [resources](resources/index.md)
 
-<br>
 </center> 
+
+---- 
 
 [HOME](../index.md)
