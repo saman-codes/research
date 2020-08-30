@@ -1,4 +1,6 @@
 
+[Context Encoders: Feature Learning by Inpainting(2016)](pathak2016context/summary.md)
+
 [Image2StyleGAN: How to Embed Images Into the StyleGAN Latent Space?(2019)](abdal2019image2stylegan/summary.md)
 
 [Amodio, M  and Krishnaswamy, S , 2019  Travelgan: Image-to-image translation by transformation vector learning](amodio2019travelgan/summary.md)
