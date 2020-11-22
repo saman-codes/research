@@ -1,4 +1,6 @@
 
+[Fader Networks: Manipulating Images by Sliding Attributes(2018)](lample2018fader/summary.md)
+
 [Augmented CycleGAN: Learning Many-to-Many Mappings from Unpaired Data(2018)](almahairi2018augmented/summary.md)
 
 [StarGAN v2: Diverse Image Synthesis for Multiple Domains(2020)](choi2020starganv2/summary.md)
