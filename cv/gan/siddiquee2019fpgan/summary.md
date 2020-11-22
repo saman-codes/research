@@ -23,7 +23,7 @@ Unlike [Schlegl et al. 2019 f-AnoGAN](https://github.com/tSchlegl/f-AnoGAN), thi
 
 **Architecture:**
 
-![](./siddiquee_et_al_2019_architecture.png)
+<img src="./siddiquee_et_al_2019_architecture.png" style="zoom: 33%;" />
 
 Architecture is similar to [StarGAN](../choi_et_al_2018/summary.md): 
 
@@ -31,8 +31,7 @@ Architecture is similar to [StarGAN](../choi_et_al_2018/summary.md):
 2) has an additional identity loss to explicitly learn the identity mapping when the domain of the input image is the same as the target domain.
 3) regularizes the generator to find a minimal domain translation function
 
-
-![](siddiquee_et_al_2019_loss.png)
+<img src="siddiquee_et_al_2019_loss.png" style="zoom:67%;" />
 
 In the image: $c_{x}$ is the domain of input image $x$, $c_{y}$ is the target domain of target image $y$
 
@@ -63,7 +62,7 @@ Also trained on BRATS2013, a brain lesion dataset. They perform weakly supervise
   - **then use Bau et al's GAN Dissection approach to identify neurons in the generator that are responsible for covering different diseases**
 
 Disease/anomaly detection:
-![](siddique_et_al_2019_eval.png)
+<img src="siddique_et_al_2019_eval.png" style="zoom:50%;" />
 
 - They compare the results with a few models, including StarGAN and [f-AnoGAN](https://github.com/tSchlegl/f-AnoGAN). Interestingly, for f-AnoGAN they use average activation of difference maps as detection score instead of the one proposed in the original implementation, as they find it more effective than the original anomaly score.
 - Substantially outperforms StarGAN, f-AnoGAN and [Alex et al. 2017](https://ui.adsabs.harvard.edu/abs/2017SPIE10133E..0GA/abstract) (the last two are state of the art in weakly supervised/unsupervised anomaly detection)
