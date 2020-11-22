@@ -1,4 +1,8 @@
 
+[Augmented CycleGAN: Learning Many-to-Many Mappings from Unpaired Data(2018)](almahairi2018augmented/summary.md)
+
+[StarGAN v2: Diverse Image Synthesis for Multiple Domains(2020)](choi2020starganv2/summary.md)
+
 [Context Encoders: Feature Learning by Inpainting(2016)](pathak2016context/summary.md)
 
 [Image2StyleGAN: How to Embed Images Into the StyleGAN Latent Space?(2019)](abdal2019image2stylegan/summary.md)
