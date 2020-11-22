@@ -1,13 +1,12 @@
-```HTML
-<br>
-<p align="center">
-  <img src="logo.png" style="zoom:100%;" />
-  
-  <p align="center">
-    My humble collection of paper summaries and random research notes
-</p>
-<br>
-```
+<img align="center" src="logo.png" style="zoom:100%;" />
+
+<center>
+<h3> My humble collection of paper summaries and random research notes </h3>
+</center>
+
+---
+
+
 
 [computer vision](cv/index.md)
 
