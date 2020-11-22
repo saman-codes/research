@@ -1,9 +1,6 @@
-<img align="center" src="logo.png" style="zoom:100%;" />
+<img src="logo.png" style="zoom:100%;" />
 
-<center>
 <h3> My humble collection of paper summaries and random research notes </h3>
-</center>
-
 ---
 
 
