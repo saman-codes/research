@@ -101,7 +101,7 @@ class EntryManager:
             content.insert(idx, f'\n[{self.subcategory}]({index_relpath})\n')
         elif k == 'directory':
             content.insert(
-                idx, f'\n[{self.title}({self.year})]({summary_relpath})\n')
+                idx, f'\n[{self.title} ({self.year})]({summary_relpath})\n')
         content = "".join(content)
 
         with open(index_path, "w") as f:

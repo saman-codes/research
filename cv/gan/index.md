@@ -1,25 +1,22 @@
+[Toward Multimodal Image-to-Image Translation (2018)](zhu2018multimodal/summary.md)
 
-[Fader Networks: Manipulating Images by Sliding Attributes(2018)](lample2018fader/summary.md)
+[Fader Networks: Manipulating Images by Sliding Attributes (2018)](lample2018fader/summary.md)
 
-[Augmented CycleGAN: Learning Many-to-Many Mappings from Unpaired Data(2018)](almahairi2018augmented/summary.md)
+[Augmented CycleGAN: Learning Many-to-Many Mappings from Unpaired Data (2018)](almahairi2018augmented/summary.md)
 
-[StarGAN v2: Diverse Image Synthesis for Multiple Domains(2020)](choi2020starganv2/summary.md)
+[StarGAN v2: Diverse Image Synthesis for Multiple Domains (2020)](choi2020starganv2/summary.md)
 
-[Context Encoders: Feature Learning by Inpainting(2016)](pathak2016context/summary.md)
+[Context Encoders: Feature Learning by Inpainting (2016)](pathak2016context/summary.md)
 
-[Image2StyleGAN: How to Embed Images Into the StyleGAN Latent Space?(2019)](abdal2019image2stylegan/summary.md)
+[Msg-gan: Multi-scale gradients for generative adversarial networks (2020)](karnewar2019msg/summary.md)
 
-[Amodio, M  and Krishnaswamy, S , 2019  Travelgan: Image-to-image translation by transformation vector learning](amodio2019travelgan/summary.md)
+[Learning fixed points in generative adversarial networks: From image-to-image translation to disease detection and localization (2019)](siddiquee2019fpgan/summary.md)
 
-[Karnewar, A  and Wang, O , 2020  Msg-gan: Multi-scale gradients for generative adversarial networks](karnewar2019msg/summary.md)
+[Wasserstein gan (2017)](arjovsky2017wasserstein/summary.md)
 
-[Siddiquee, Md Mahfuzur Rahman, Zongwei Zhou, Nima Tajbakhsh, Ruibin Feng, Michael B  Gotway, Yoshua Bengio, and Jianming Liang  "Learning fixed points in generative adversarial networks: From image-to-image translation to disease detection and localization " In Proceedings of the IEEE International Conference on Computer Vision, pp  191-200  2019](siddiquee_et_al_2019/summary.md)
+[Stargan: Unified generative adversarial networks for multi-domain image-to-image translation (2018)](choi2018stargan/summary.md)
 
-[Arjovsky, M , Chintala, S  and Bottou, L , 2017  Wasserstein gan](arjovsky_et_al_2017/summary.md)
-
-[Choi, Y , Choi, M , Kim, M , Ha, J W , Kim, S  and Choo, J , 2018  Stargan: Unified generative adversarial networks for multi-domain image-to-image translation](choi2018stargan/summary.md)
-
---- 
+---
 
 [Training tips and tricks](./training_tips_and_tricks.md)
 

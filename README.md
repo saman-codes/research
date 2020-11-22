@@ -1,7 +1,17 @@
-<img src="logo.png" style="zoom:100%;" />
+```html
+<p align="center">
+  <img src="logo.png" />
+</p>
+```
+
+
 
 <h3> My humble collection of paper summaries and random research notes </h3>
+👁️ = Skimmed
 
+👁️👁️ = Read everything 
+
+👁️👁️👁️ = Read everything super carefully, including appendixes
 
 ---
 
