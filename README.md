@@ -1,16 +1,19 @@
-<center>
-<img src="logo.png" style="zoom:100%;" />
+```HTML
+<br>
+<p align="center">
+  <img src="logo.png" style="zoom:100%;" />
+  
+  <p align="center">
+    My humble collection of paper summaries and random research notes
+</p>
+<br>
+```
 
- 
-
-<h3> My humble collection of paper summaries</h3>
-
-<center>
-<h2> 
 [computer vision](cv/index.md)
+
 [reinforcement learning](rl/index.md)
+
 [general](general/index.md)
-</center>
 
 
 
