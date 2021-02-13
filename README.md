@@ -16,5 +16,18 @@
 [general](general/index.md)
 
 ---
+To run locally, install `arxiv.py` with:
+
+```
+pip install arxiv
+```
+
+To add a new paper to the collection run:
+
+```
+python add_entry.py [-h] [-o] <category> <subcategory> <directory> <arxiv_url>
+```
+
+---
 
 *Best viewed in a markdown reader (GitHub's markdown flavour doesn't render math symbols properly)
