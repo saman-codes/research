@@ -37,7 +37,7 @@ The Divided Space-Time Attention performs the best
 
 **Notes:**
 
-3D CNN for video classification are quite inefficient, so there's a clear use case for this, and there's a chance that self-attention will replace CNNs for 2D image classification as well. The paper doesn't show a comparison with a 3D CNN, so it's unclear
+3D CNN for video classification are quite inefficient, so there's a clear use case for this, and there's a chance that self-attention will replace CNNs for 2D image classification as well. The paper doesn't show a comparison with a 3D CNN, so we can't compare the two approaches quantitatively, but Tranformers for vision seem very promising, (they seem to be a more general architecture that CNN, which avoids the inductive bias due to conv filters) so it would makes sense that we will eventually extend the same approach to videos. 
 
 
 ---
