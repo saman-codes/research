@@ -1,3 +1,6 @@
+
+[CollaGAN : Collaborative GAN for Missing Image Data Imputation (2019)](lee2019collagan/summary.md)
+
 [Toward Multimodal Image-to-Image Translation (2018)](zhu2018multimodal/summary.md)
 
 [Fader Networks: Manipulating Images by Sliding Attributes (2018)](lample2018fader/summary.md)
