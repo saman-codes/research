@@ -1,7 +1,7 @@
 
-[CollaGAN : Collaborative GAN for Missing Image Data Imputation (2019)](lee2019collagan/summary.md)
+[Style and Content Disentanglement in Generative Adversarial Networks (2018)](kazemy2018style/summary.md)
 
-[Toward Multimodal Image-to-Image Translation (2018)](zhu2018multimodal/summary.md)
+[CollaGAN : Collaborative GAN for Missing Image Data Imputation (2019)](lee2019collagan/summary.md)
 
 [Fader Networks: Manipulating Images by Sliding Attributes (2018)](lample2018fader/summary.md)
 

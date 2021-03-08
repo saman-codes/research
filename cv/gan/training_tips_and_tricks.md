@@ -4,7 +4,7 @@
 
 - Early stopping might lead to a suboptimal solution, as losses are quite volatile [[source]](https://towardsdatascience.com/10-lessons-i-learned-training-generative-adversarial-networks-gans-for-a-year-c9071159628)
 
-- There doesn't seem to be a great difference across loss functions, when it comes to convergence, so it's best to first try using the simplest on [[source]](https://towardsdatascience.com/10-lessons-i-learned-training-generative-adversarial-networks-gans-for-a-year-c9071159628)
+- There doesn't seem to be a great difference across loss functions, when it comes to convergence, so it's best to first try using the simplest one [[source]](https://towardsdatascience.com/10-lessons-i-learned-training-generative-adversarial-networks-gans-for-a-year-c9071159628)
 
 - G and D updates should be balanced: having multiple updates of one per update of the other is unlikely to increase training stability [[source]](https://towardsdatascience.com/10-lessons-i-learned-training-generative-adversarial-networks-gans-for-a-year-c9071159628)
 
