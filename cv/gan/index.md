@@ -1,4 +1,6 @@
 
+[Image-to-Image Translation with Conditional Adversarial Networks (2018)](isola2018pix/summary.md)
+
 [Style and Content Disentanglement in Generative Adversarial Networks (2018)](kazemy2018style/summary.md)
 
 [CollaGAN : Collaborative GAN for Missing Image Data Imputation (2019)](lee2019collagan/summary.md)
