@@ -1,4 +1,7 @@
 
+[Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial
+  Networks (2020)](zhu2017cycle/summary.md)
+
 [Image-to-Image Translation with Conditional Adversarial Networks (2018)](isola2018pix/summary.md)
 
 [Style and Content Disentanglement in Generative Adversarial Networks (2018)](kazemy2018style/summary.md)
