@@ -114,7 +114,7 @@ class EntryManager:
         if not os.path.exists(self.summary_fpath):
             with open(self.summary_fpath, 'w') as f:
                 f.write(
-                    f'[{self.title}]({self.url})\n{self.year} - {self.authors}\n\n---\n\n👁️\n\n**Problem:**\n\n**Solution:**\n\n**Architecture:**\n\n**Results:**\n\n**Notes:**\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
+                    f'[{self.title}]({self.url})\n{self.year} - {self.authors}\n\n---\n\n👁️\n\n**Problem:**\n\n\n**Solution:**\n\n\n**Architecture:**\n\n\n**Results:**\n\n\n**Notes:**\n\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
                 )
             logging.info(
                 f'Summary {self.truncate_path(self.summary_fpath)} created')

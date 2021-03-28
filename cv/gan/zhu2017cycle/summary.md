@@ -1,5 +1,4 @@
-[Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial
-Networks](https://arxiv.org/pdf/1703.10593.pdf)
+[Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks](https://arxiv.org/pdf/1703.10593.pdf)
 2020 - Jun-Yan Zhu, Taesung Park, Phillip Isola, Alexei A. Efros
 
 ---

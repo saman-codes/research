@@ -1,6 +1,7 @@
 
-[Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial
-  Networks (2020)](zhu2017cycle/summary.md)
+[Unsupervised Anomaly Detection with Generative Adversarial Networks to Guide Marker Discovery (2017)](schlegl2017anogan/summary.md)
+
+[Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks (2020)](zhu2017cycle/summary.md)
 
 [Image-to-Image Translation with Conditional Adversarial Networks (2018)](isola2018pix/summary.md)
 
