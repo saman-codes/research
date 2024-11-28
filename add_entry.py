@@ -49,7 +49,7 @@ class EntryManager:
             for _, el in it:
                 _, _, el.tag = el.tag.rpartition("}")
             root = it.root
-        parsed_dict["title"] = root.find(".//title").text
+        parsed_dict["title"] = root.find(".//entry/title").text
         parsed_dict["summary"] = root.find(".//summary").text
         parsed_dict["published"] = datetime.date(
             datetime.strptime(root.find(".//published").text, "%Y-%m-%dT%H:%M:%SZ")
@@ -99,11 +99,7 @@ class EntryManager:
         self.update_subcategory_index_file(index_file_path)
 
     def create_subcategory_index_file(self, index_file_path):
-        index_relative_path = f"{self.subcategory}/index.md"
-        content = [
-            "<center>\n<h2>\n[REPLACE_ME](REPLACE_ME/index.md)\n</center>\n[HOME]( ../../index.md)"
-        ]
-        content.insert(-2, f"\n[{self.subcategory}]({index_relative_path})\n")
+        content = ["\n---\n[HOME]( ../../index.md)"]
         self._join_and_write_content(content, index_file_path)
 
     def update_subcategory_index_file(self, index_file_path):
@@ -115,7 +111,6 @@ class EntryManager:
 
     def create_directory_index_file(self, index_file_path):
         content = ["\n---\n[BACK](../index.md)\n\n[HOME]( ../../index.md)"]
-        content.insert(-4, self.paper_details_string)
         self._join_and_write_content(content, index_file_path)
 
     def update_directory_index_file(self, index_file_path):
