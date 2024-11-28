@@ -16,16 +16,24 @@
 [general](general/index.md)
 
 ---
-To run locally, install `arxiv.py` with:
-
+### Setup
+Requires [`poetry`](https://python-poetry.org).
+  
+Run the following command in the base directory
 ```
-pip install arxiv
+poetry install
 ```
-
 To add a new paper to the collection run:
-
 ```
-python add_entry.py [-h] [-o] <category> <subcategory> <directory> <arxiv_url>
+poetry run add_entry.py [-h] [-o] <category> <subcategory> <directory> <arxiv_url>
+```
+For <i>subcategory</i> I generally use one of the following formats:
+```
+$first_author$year$keyword
+```
+or
+```
+$first_author_with_et_al$year
 ```
 
 ---

@@ -1,135 +1,151 @@
-#! /usr/local/bin/python3
-
-import os
-import logging
+# Standard Library
 import argparse
+import os
 import subprocess
-import arxiv
+from dataclasses import dataclass
+from datetime import datetime
+from io import StringIO
+import xml.etree.ElementTree as ET
+import urllib.request as libreq
 
-logging.basicConfig(format='%(message)s', level=logging.INFO)
-'''
+"""
 Examples:
     Category: CV, RL 
     Subcategory: architectures, latent_spaces, medical
-    Directory: pathak_et_al_2017, schmidhuber_1991
-'''
+    Directory: lang1988spiral, schmidhuber1991everything, pathak_et_al_2017
+"""
+
+
+@dataclass
+class Paper:
+    title: str
+    authors: list[str]
+    published: datetime.date
+    summary: str
 
 
 class EntryManager:
+
     def __init__(self, args):
-        self.args = args
-        self.set_args()
+        self.category = args.category
+        self.subcategory = args.subcategory
+        self.url = args.url
+        self.set_paper()
+        self.set_directory()
+        self.set_paths()
         self.create_dirs()
-        self.update_summary()
+        self.create_and_update_subcategory_index_file()
+        self.create_and_update_directory_index_file()
+        self.create_summary_file_if_not_exists()
 
-    def set_args(self):
-        self.cwd = os.path.dirname(os.path.realpath(__file__))
-
-        self.category = self.args.category
-        self.category_path = os.path.join(self.cwd, self.category)
-
-        self.subcategory = self.args.subcategory
-        self.subcategory_path = os.path.join(self.category_path,
-                                             self.subcategory)
-
-        self.directory = self.args.directory
-        self.directory_path = os.path.join(self.subcategory_path,
-                                           self.directory)
-        self.url = self.args.url
-        self.summary_fpath = os.path.join(self.directory_path, 'summary.md')
-        self.set_refs()
-
-    def set_refs(self):
-        article_id = self.url.split('/')[-1][:-4]
-        results = arxiv.query(query="",
-                              id_list=[article_id],
-                              max_results=1,
-                              start=0,
-                              sort_by="relevance",
-                              sort_order="descending",
-                              prune=True,
-                              iterative=False,
-                              max_chunk_results=1)[0]
-        self.title = results.title
-        self.abstract = results.summary
-        self.authors = ', '.join(results.authors)
-        self.year = results.updated_parsed.tm_year
-
-    def create_dirs(self):
-        # Create directories that don't exist
-        for k, v in {
-                'category': self.category_path,
-                'subcategory': self.subcategory_path,
-                'directory': self.directory_path,
-        }.items():
-            if not os.path.exists(v):
-                os.mkdir(v)
-                # Only update indeces when a new dir is created
-                self.update_index(k)
-                logging.info(f'New {k} --> {self.truncate_path(v)}')
+    @staticmethod
+    def get_parsed_dict(url):
+        article_id = url.split("/")[-1]
+        url = f"http://export.arxiv.org/api/query?id_list={article_id}&start=0&max_results=1"
+        parsed_dict = dict()
+        with libreq.urlopen(url) as req:
+            response = req.read().decode("utf-8")
+            it = ET.iterparse(StringIO(response))
+            for _, el in it:
+                _, _, el.tag = el.tag.rpartition("}")
+            root = it.root
+        parsed_dict["title"] = root.find(".//title").text
+        parsed_dict["summary"] = root.find(".//summary").text
+        parsed_dict["published"] = datetime.date(
+            datetime.strptime(root.find(".//published").text, "%Y-%m-%dT%H:%M:%SZ")
+        )
+        parsed_dict["authors"] = [
+            el.find("name").text for el in root.findall(".//author")
+        ]
+        return parsed_dict
 
     @staticmethod
     def truncate_path(path):
-        return '/'.join(path.split('/')[5:])
+        return "/".join(path.split("/")[5:])
 
-    def update_index(self, k):
-        parent_path = getattr(self, f'{k}_path')
-        index_path = os.path.split(parent_path)[0]
-        index_path = os.path.join(index_path, 'index.md')
-        if os.path.exists(index_path):
-            with open(index_path, 'r') as f:
-                content = list(f)
-                if k == 'subcategory':
-                    idx = -4
-                elif k == 'directory':
-                    idx = 0
-        else:
-            if k == 'subcategory':
-                content = [
-                    '<center>\n<h2>\n[object-based](object_based/index.md)\n</center>\n[HOME]( ../../index.md)'
-                ]
-                idx = -2
-            elif k == 'directory':
-                content = [
-                    '\n---\n[BACK](../index.md)\n\n[HOME]( ../../index.md)'
-                ]
-                idx = -4
+    def set_paths(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        self.category_path = os.path.join(self.cwd, self.category)
+        self.subcategory_path = os.path.join(self.category_path, self.subcategory)
+        self.directory_path = os.path.join(self.subcategory_path, self.directory)
+        self.summary_fpath = os.path.join(self.directory_path, "summary.md")
 
-        summary_relpath = f'{self.directory}/summary.md'
-        index_relpath = f'{self.subcategory}/index.md'
-        if k == 'subcategory':
-            content.insert(idx, f'\n[{self.subcategory}]({index_relpath})\n')
-        elif k == 'directory':
-            content.insert(
-                idx, f'\n[{self.title} ({self.year})]({summary_relpath})\n')
+    def set_paper(self):
+        self.paper = Paper(**self.get_parsed_dict(self.url))
+
+    def set_directory(self):
+        first_author_surname = self.paper.authors[0].split(" ")[-1].lower()
+        year = self.paper.published.year
+        self.directory = f"{first_author_surname}{year}"
+        self.paper_details_string = f"\n[{self.paper.title} ({self.paper.published.year})]({f"{self.directory}/summary.md"})\n"
+
+    def create_dirs(self):
+        for k in ["category", "subcategory", "directory"]:
+            path = getattr(self, f"{k}_path")
+            os.makedirs(path, exist_ok=True)
+
+    @staticmethod
+    def _join_and_write_content(content, path):
         content = "".join(content)
-
-        with open(index_path, "w") as f:
+        with open(path, "w") as f:
             f.write(content)
 
-        logging.info(f'Index {self.truncate_path(index_path)} updated')
+    def create_and_update_subcategory_index_file(self):
+        index_file_path = os.path.join(
+            os.path.split(self.subcategory_path)[0], "index.md"
+        )
+        if not os.path.exists(index_file_path):
+            self.create_subcategory_index_file(index_file_path)
+        self.update_subcategory_index_file(index_file_path)
 
-    def update_summary(self):
-        # Add content to summary file
+    def create_subcategory_index_file(self, index_file_path):
+        index_relative_path = f"{self.subcategory}/index.md"
+        content = [
+            "<center>\n<h2>\n[REPLACE_ME](REPLACE_ME/index.md)\n</center>\n[HOME]( ../../index.md)"
+        ]
+        content.insert(-2, f"\n[{self.subcategory}]({index_relative_path})\n")
+        self._join_and_write_content(content, index_file_path)
+
+    def update_subcategory_index_file(self, index_file_path):
+        index_relative_path = f"{self.subcategory}/index.md"
+        with open(index_file_path, "r") as f:
+            content = list(f)
+        content.insert(-4, f"\n[{self.subcategory}]({index_relative_path})\n")
+        self._join_and_write_content(content, index_file_path)
+
+    def create_directory_index_file(self, index_file_path):
+        content = ["\n---\n[BACK](../index.md)\n\n[HOME]( ../../index.md)"]
+        content.insert(-4, self.paper_details_string)
+        self._join_and_write_content(content, index_file_path)
+
+    def update_directory_index_file(self, index_file_path):
+        with open(index_file_path, "r") as f:
+            content = list(f)
+        content.insert(0, self.paper_details_string)
+        self._join_and_write_content(content, index_file_path)
+
+    def create_and_update_directory_index_file(self):
+        index_file_path = os.path.join(
+            os.path.split(self.directory_path)[0], "index.md"
+        )
+        if not os.path.exists(index_file_path):
+            self.create_directory_index_file(index_file_path)
+        self.update_directory_index_file(index_file_path)
+
+    def create_summary_file_if_not_exists(self):
         if not os.path.exists(self.summary_fpath):
-            with open(self.summary_fpath, 'w') as f:
+            with open(self.summary_fpath, "w") as f:
                 f.write(
-                    f'[{self.title}]({self.url})\n{self.year} - {self.authors}\n\n---\n\n👁️\n\n**Problem:**\n\n\n**Solution:**\n\n\n**Architecture:**\n\n\n**Results:**\n\n\n**Notes:**\n\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)'
+                    f"[{self.paper.title}]({self.url})\n{self.paper.published.year} - {", ".join(self.paper.authors)}\n\n---\n\n👁️\n\n**Problem:**\n\n\n**Solution:**\n\n\n**Architecture:**\n\n\n**Results:**\n\n\n**Notes:**\n\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)"
                 )
-            logging.info(
-                f'Summary {self.truncate_path(self.summary_fpath)} created')
-        else:
-            logging.warning(
-                f' !!! Summary file {self.truncate_path(self.summary_fpath)} already exists: not overwriting !!!'
-            )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-o', dest='open', action='store_true')
-    for p in ["category", "subcategory", "directory", "url"]:
+    parser.add_argument("-o", dest="open", action="store_true")
+    for p in ["category", "subcategory", "url"]:
         parser.add_argument(p, type=str, default=None, help=p)
     args = parser.parse_args()
     em = EntryManager(args)
     if args.open:
-        subprocess.call(['code', em.summary_fpath])
+        subprocess.call(["nvim", em.summary_fpath])
