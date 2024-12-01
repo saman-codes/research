@@ -21,7 +21,7 @@ class Paper:
     title: str
     authors: list[str]
     published: datetime.date
-    summary: str
+    abstract: str
 
 
 class EntryManager:
@@ -50,7 +50,7 @@ class EntryManager:
                 _, _, el.tag = el.tag.rpartition("}")
             root = it.root
         parsed_dict["title"] = root.find(".//entry/title").text
-        parsed_dict["summary"] = root.find(".//summary").text
+        parsed_dict["abstract"] = root.find(".//summary").text
         parsed_dict["published"] = datetime.date(
             datetime.strptime(root.find(".//published").text, "%Y-%m-%dT%H:%M:%SZ")
         )
@@ -131,7 +131,17 @@ class EntryManager:
         if not os.path.exists(self.summary_fpath):
             with open(self.summary_fpath, "w") as f:
                 f.write(
-                    f"[{self.paper.title}]({self.url})\n{self.paper.published.year} - {", ".join(self.paper.authors)}\n\n---\n\n👁️\n\n**Problem:**\n\n\n**Solution:**\n\n\n**Architecture:**\n\n\n**Results:**\n\n\n**Notes:**\n\n\n---\n\n[BACK](../index.md)\n\n[HOME](../../../index.md)"
+                    "\n\n".join(
+                        [
+                            f"[{self.paper.title}]({self.url})\n{self.paper.published.year} - {", ".join(self.paper.authors)}\n\n---",
+                            "👁️",
+                            "**Abstract**",
+                            self.paper.abstract,
+                            "**Problem:**\n\n\n**Solution:**\n\n\n**Architecture:**\n\n\n**Results:**\n\n\n**Notes:**\n\n\n---",
+                            "[BACK](../index.md)",
+                            "[HOME](../../../index.md)",
+                        ]
+                    )
                 )
 
 
