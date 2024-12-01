@@ -106,7 +106,7 @@ class EntryManager:
         index_relative_path = f"{self.subcategory}/index.md"
         with open(index_file_path, "r") as f:
             content = list(f)
-        content.insert(-4, f"\n[{self.subcategory}]({index_relative_path})\n")
+        content.insert(0, f"\n[{self.subcategory}]({index_relative_path})\n")
         self._join_and_write_content(content, index_file_path)
 
     def create_directory_index_file(self, index_file_path):
