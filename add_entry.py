@@ -30,6 +30,13 @@ class EntryManager:
         self.category = args.category
         self.subcategory = args.subcategory
         self.url = args.url
+        self.title = args.title
+        self.published = datetime.strptime(args.published, "%Y")
+        self.authors = (
+            [",".split(args.authors)] if "," in args.authors else [args.authors]
+        )
+        print(self.authors)
+        self.is_from_arxiv = not (self.title or self.published or self.authors)
         self.set_paper()
         self.set_directory()
         self.set_paths()
@@ -38,30 +45,36 @@ class EntryManager:
         self.create_and_update_directory_index_file()
         self.create_summary_file_if_not_exists()
 
-    @staticmethod
-    def get_parsed_dict(url):
-        article_id = url.split("/")[-1]
-        url = f"http://export.arxiv.org/api/query?id_list={article_id}&start=0&max_results=1"
-        parsed_dict = dict()
-        with libreq.urlopen(url) as req:
-            response = req.read().decode("utf-8")
-            it = ET.iterparse(StringIO(response))
-            for _, el in it:
-                _, _, el.tag = el.tag.rpartition("}")
-            root = it.root
-        parsed_dict["title"] = root.find(".//entry/title").text
-        parsed_dict["abstract"] = root.find(".//summary").text
-        parsed_dict["published"] = datetime.date(
-            datetime.strptime(root.find(".//published").text, "%Y-%m-%dT%H:%M:%SZ")
-        )
-        parsed_dict["authors"] = [
-            el.find("name").text for el in root.findall(".//author")
-        ]
+    def get_parsed_dict(self, url):
+        if self.is_from_arxiv:
+            article_id = url.split("/")[-1]
+            url = f"http://export.arxiv.org/api/query?id_list={article_id}&start=0&max_results=1"
+            parsed_dict = dict()
+            with libreq.urlopen(url) as req:
+                response = req.read().decode("utf-8")
+                it = ET.iterparse(StringIO(response))
+                for _, el in it:
+                    _, _, el.tag = el.tag.rpartition("}")
+                root = it.root
+            parsed_dict["title"] = root.find(".//entry/title").text
+            parsed_dict["abstract"] = root.find(".//summary").text
+            parsed_dict["published"] = datetime.date(
+                datetime.strptime(root.find(".//published").text, "%Y-%m-%dT%H:%M:%SZ")
+            )
+            parsed_dict["authors"] = [
+                el.find("name").text for el in root.findall(".//author")
+            ]
+        else:
+            parsed_dict = dict(
+                title=self.title,
+                published=self.published,
+                authors=self.authors,
+                abstract="",
+            )
         return parsed_dict
 
-    @staticmethod
-    def truncate_path(path):
-        return "/".join(path.split("/")[5:])
+    def set_paper(self):
+        self.paper = Paper(**self.get_parsed_dict(self.url))
 
     def set_paths(self):
         self.cwd = os.path.dirname(os.path.realpath(__file__))
@@ -69,9 +82,6 @@ class EntryManager:
         self.subcategory_path = os.path.join(self.category_path, self.subcategory)
         self.directory_path = os.path.join(self.subcategory_path, self.directory)
         self.summary_fpath = os.path.join(self.directory_path, "summary.md")
-
-    def set_paper(self):
-        self.paper = Paper(**self.get_parsed_dict(self.url))
 
     def set_directory(self):
         first_author_surname = self.paper.authors[0].split(" ")[-1].lower()
@@ -83,6 +93,10 @@ class EntryManager:
         for k in ["category", "subcategory", "directory"]:
             path = getattr(self, f"{k}_path")
             os.makedirs(path, exist_ok=True)
+
+    @staticmethod
+    def truncate_path(path):
+        return "/".join(path.split("/")[5:])
 
     @staticmethod
     def _join_and_write_content(content, path):
@@ -150,6 +164,8 @@ if __name__ == "__main__":
     parser.add_argument("-o", dest="open", action="store_true")
     for p in ["category", "subcategory", "url"]:
         parser.add_argument(p, type=str, default=None, help=p)
+    for p in ["title", "published", "authors"]:
+        parser.add_argument(p, type=str, default="", help=p)
     args = parser.parse_args()
     em = EntryManager(args)
     if args.open:
