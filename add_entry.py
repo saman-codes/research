@@ -35,7 +35,6 @@ class EntryManager:
         self.authors = (
             [",".split(args.authors)] if "," in args.authors else [args.authors]
         )
-        print(self.authors)
         self.is_from_arxiv = not (self.title or self.published or self.authors)
         self.set_paper()
         self.set_directory()
